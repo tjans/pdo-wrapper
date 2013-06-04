@@ -285,6 +285,7 @@ class pdodb {
     private function execute() {		
 		$result = $this->stmt->execute();
 				
+		$returnVal = $result;
 		if($result !== false) {
 				if(preg_match("/^(" . implode("|", array("select", "describe", "pragma")) . ") /i", $this->sql))
 					$returnVal = $result;
