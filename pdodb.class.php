@@ -165,16 +165,19 @@ class pdodb {
 		$fieldSize = sizeof($fields);
 
 		$this->sql = "UPDATE " . $table . " SET ";
+		$fieldSql = "";
+
 		foreach($fields as $field=>$value)
 		{
-			$bindField = ":update_".$value;
-			$this->sql .= $field . " = $bindField"; 
+			$bindField = ":update_".$field;
+			$fieldSql .= ($fieldSql?",":"") . $field . " = $bindField"; 
 			$this->bindValues[$bindField] = array(
 				'value'=>$value,
 				'type'=>PDO::PARAM_STR
 			);
 		}
 		
+		$this->sql .= rtrim($fieldSql);
 		return $this;
 	}
 	
